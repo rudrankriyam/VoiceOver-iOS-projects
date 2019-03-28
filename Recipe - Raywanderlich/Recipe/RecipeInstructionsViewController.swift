@@ -23,111 +23,117 @@
 import UIKit
 
 class RecipeInstructionsViewController: UITableViewController {
-  
-  fileprivate var headerView: UIView!
-  fileprivate let kTableHeaderHeight: CGFloat = 300.0
-  var recipe: Recipe!
-  fileprivate var instructionViewModel: InstructionViewModel!
-  @IBOutlet var likeButton: UIButton!
-  @IBOutlet var backButton: UIButton!
-  
-  var didLikeFood = true
-  
-  @IBOutlet var dishImageView: UIImageView!
-  @IBOutlet var dishLabel: UILabel!
-  
-  override var prefersStatusBarHidden: Bool {
-    get {
-      return true
+
+    fileprivate var headerView: UIView!
+    fileprivate let kTableHeaderHeight: CGFloat = 300.0
+    var recipe: Recipe!
+    fileprivate var instructionViewModel: InstructionViewModel!
+    @IBOutlet var likeButton: UIButton!
+    @IBOutlet var backButton: UIButton!
+
+    var didLikeFood = true
+
+    @IBOutlet var dishImageView: UIImageView!
+    @IBOutlet var dishLabel: UILabel!
+
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    assert(recipe != nil)
-    
-    isLikedFood(true)
-    instructionViewModel = InstructionViewModel(recipe: recipe, type: .ingredient)
-    setupRecipe()
-    setupTableView()
-  }
-  
-  // MARK: - Action Outlets
-  
-  @IBAction func likeButtonPressed(_ sender: AnyObject) {
-    isLikedFood(!didLikeFood)
-  }
-  
-  func isLikedFood(_ liked: Bool) {
-    if liked {
-      likeButton.setTitle("😍", for: .normal)
-      didLikeFood = true
-    } else {
-      likeButton.setTitle("😖", for: .normal)
-      didLikeFood = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        backButton.accessibilityLabel = "Back"
+        backButton.accessibilityTraits = UIAccessibilityTraits.button
+
+        assert(recipe != nil)
+
+        isLikedFood(true)
+        instructionViewModel = InstructionViewModel(recipe: recipe, type: .ingredient)
+        setupRecipe()
+        setupTableView()
     }
-  }
-  
-  @IBAction func toggleSegment(_ sender: UISegmentedControl) {
-    if sender.selectedSegmentIndex == 0 { // Ingredients
-      instructionViewModel.type = .ingredient
-    } else { //Instruction
-      instructionViewModel.type = .cookingInstructions
+
+    // MARK: - Action Outlets
+
+    @IBAction func likeButtonPressed(_ sender: AnyObject) {
+        isLikedFood(!didLikeFood)
     }
-    tableView.reloadData()
-  }
-  
-  @IBAction func tapBackButton(_ sender: AnyObject) {
-    _ = navigationController?.popViewController(animated: true)
-  }
+
+    func isLikedFood(_ liked: Bool) {
+        if liked {
+            likeButton.setTitle("😍", for: .normal)
+            likeButton.accessibilityLabel = "Like"
+            likeButton.accessibilityTraits = UIAccessibilityTraits.button
+            didLikeFood = true
+        } else {
+            likeButton.setTitle("😖", for: .normal)
+            likeButton.accessibilityLabel = "Dislike"
+            likeButton.accessibilityTraits = UIAccessibilityTraits.button
+            didLikeFood = false
+        }
+    }
+
+    @IBAction func toggleSegment(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 { // Ingredients
+            instructionViewModel.type = .ingredient
+        } else { //Instruction
+            instructionViewModel.type = .cookingInstructions
+        }
+        tableView.reloadData()
+    }
+
+    @IBAction func tapBackButton(_ sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Setup
 extension RecipeInstructionsViewController {
-  
-  func setupRecipe() {
-    dishImageView.image = recipe.photo
-    dishLabel.text = recipe.name
-  }
-  
-  func setupTableView() {
-    tableView.estimatedRowHeight = 79
-    tableView.rowHeight = UITableView.automaticDimension
-  }
+    func setupRecipe() {
+        dishImageView.image = recipe.photo
+        dishLabel.text = recipe.name
+    }
+
+    func setupTableView() {
+        tableView.estimatedRowHeight = 79
+        tableView.rowHeight = UITableView.automaticDimension
+    }
 }
 
 // MARK: - TableView Data Source
 extension RecipeInstructionsViewController {
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return instructionViewModel.numberOfSections()
-  }
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return instructionViewModel.numberOfItems()
-  }
-  
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: InstructionCell.self), for: indexPath) as! InstructionCell
-    
-    if let description = instructionViewModel.itemFor(indexPath.item) {
-      cell.configure(description)
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return instructionViewModel.numberOfSections()
     }
-    
-    let strike = instructionViewModel.getStateFor(indexPath.item)
-    cell.shouldStrikeThroughText(strike)
-    
-    return cell
-  }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return instructionViewModel.numberOfItems()
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: InstructionCell.self), for: indexPath) as! InstructionCell
+
+        if let description = instructionViewModel.itemFor(indexPath.item) {
+            cell.configure(description)
+        }
+
+        let strike = instructionViewModel.getStateFor(indexPath.item)
+        cell.shouldStrikeThroughText(strike)
+
+        return cell
+    }
 }
 
 // MARK: - TableView Delegate
 extension RecipeInstructionsViewController {
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    instructionViewModel.selectItemFor(indexPath.item)
-    let cell = tableView.cellForRow(at: indexPath) as! InstructionCell
-    let strike = instructionViewModel.getStateFor(indexPath.item)
-    cell.shouldStrikeThroughText(strike)
-  }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        instructionViewModel.selectItemFor(indexPath.item)
+        let cell = tableView.cellForRow(at: indexPath) as! InstructionCell
+        let strike = instructionViewModel.getStateFor(indexPath.item)
+        cell.shouldStrikeThroughText(strike)
+    }
 }

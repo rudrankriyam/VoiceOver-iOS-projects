@@ -40,6 +40,8 @@ class RecipeCell: UITableViewCell {
     foodImageView.image = recipe.photo
     difficultyValue = recipe.difficulty
     difficultyLabel.text = difficultyString
+
+    applyAccessibility(recipe)
   }
   
   var difficultyString: String {
@@ -69,4 +71,25 @@ class RecipeCell: UITableViewCell {
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
+}
+
+// MARK: Accessibility
+extension RecipeCell {
+    func applyAccessibility(_ recipe: Recipe) {
+        foodImageView.accessibilityTraits = UIAccessibilityTraits.image
+        foodImageView.accessibilityLabel = recipe.photoDescription
+
+        difficultyLabel.isAccessibilityElement = true
+        difficultyLabel.accessibilityTraits = UIAccessibilityTraits.none
+        difficultyLabel.accessibilityLabel = "Difficulty Level"
+        difficultyLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        difficultyLabel.adjustsFontForContentSizeCategory = true
+
+        switch recipe.difficulty {
+        case .unknown:
+            difficultyLabel.accessibilityValue = "Unknown"
+        case .rating(let value):
+            difficultyLabel.accessibilityValue = "\(value)"
+        }
+    }
 }

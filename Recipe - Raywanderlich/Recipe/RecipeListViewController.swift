@@ -23,64 +23,64 @@
 import UIKit
 
 class RecipeListViewController: UITableViewController {
-  
-  var recipes = [Recipe]()
-  var selectedRecipe: Recipe?
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if let seedRecipe = Recipe.loadDefaultRecipe() {
-      recipes += seedRecipe
-      recipes = recipes.sorted(by: { $0.name < $1.name })
+
+    var recipes = [Recipe]()
+    var selectedRecipe: Recipe?
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let seedRecipe = Recipe.loadDefaultRecipe() {
+            recipes += seedRecipe
+            recipes = recipes.sorted(by: { $0.name < $1.name })
+        }
+
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
     }
-    
-    tableView.estimatedRowHeight = 100
-    tableView.rowHeight = UITableView.automaticDimension
-  }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    navigationController?.setNavigationBarHidden(true, animated: true)
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    navigationController?.setNavigationBarHidden(false, animated: true)
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "showRecipe" {
-      if let vc = segue.destination as? RecipeInstructionsViewController {
-        vc.recipe = selectedRecipe
-      }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
-  }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRecipe" {
+            if let vc = segue.destination as? RecipeInstructionsViewController {
+                vc.recipe = selectedRecipe
+            }
+        }
+    }
 }
 
 // MARK: - TableView Data Source
 extension RecipeListViewController {
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return recipes.count
-  }
-  
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RecipeCell.self), for: indexPath) as! RecipeCell
-    let recipe = recipes[indexPath.item]
-    cell.configureCell(with: recipe)
-    
-    return cell
-  }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipes.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RecipeCell.self), for: indexPath) as! RecipeCell
+        let recipe = recipes[indexPath.item]
+        cell.configureCell(with: recipe)
+
+        return cell
+    }
 }
 
 // MARK: - TableView Delegate
 extension RecipeListViewController {
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    selectedRecipe = recipes[indexPath.item]
-    performSegue(withIdentifier: "showRecipe", sender: self)
-  }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedRecipe = recipes[indexPath.item]
+        performSegue(withIdentifier: "showRecipe", sender: self)
+    }
 }

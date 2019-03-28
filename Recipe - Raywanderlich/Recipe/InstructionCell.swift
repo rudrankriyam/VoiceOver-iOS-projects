@@ -23,33 +23,37 @@
 import UIKit
 
 class InstructionCell: UITableViewCell {
-  
-  @IBOutlet var checkmarkButton: UIButton!
-  @IBOutlet var descriptionLabel: UILabel!
-  var type: RecipeInstructionType = .ingredient
-  
-  func configure(_ description: String) {
-    descriptionLabel.text = description
-  }
-  
-  @IBAction func checkmarkTapped(_ sender: AnyObject) {
-    shouldStrikeThroughText(!checkmarkButton.isSelected)
-  }
-  
-  func shouldStrikeThroughText(_ strikeThrough :Bool) {
-    guard let text = descriptionLabel.text else {
-      return
+
+    @IBOutlet var checkmarkButton: UIButton!
+    @IBOutlet var descriptionLabel: UILabel!
+    var type: RecipeInstructionType = .ingredient
+
+    func configure(_ description: String) {
+        descriptionLabel.text = description
     }
-    
-    let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
-    
-    if strikeThrough {
-        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+
+    @IBAction func checkmarkTapped(_ sender: AnyObject) {
+        shouldStrikeThroughText(!checkmarkButton.isSelected)
     }
-    
-    checkmarkButton.isSelected = strikeThrough
-    
-    descriptionLabel.attributedText = attributeString
-  }
-  
+
+    func shouldStrikeThroughText(_ strikeThrough :Bool) {
+        guard let text = descriptionLabel.text else {
+            return
+        }
+        checkmarkButton.isAccessibilityElement = false
+
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
+
+        if strikeThrough {
+            descriptionLabel.accessibilityLabel = "Completed \(text)"
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        } else {
+            descriptionLabel.accessibilityLabel = "Uncompleted \(text)"
+        }
+
+        checkmarkButton.isSelected = strikeThrough
+
+        descriptionLabel.attributedText = attributeString
+    }
+
 }
