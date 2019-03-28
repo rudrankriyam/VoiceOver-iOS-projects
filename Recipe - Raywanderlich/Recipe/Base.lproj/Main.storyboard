@@ -59,7 +59,7 @@
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.13477766513824463" green="0.14080885052680969" blue="0.14089912176132202" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.29016751050949097" green="0.29021435976028442" blue="0.2901572585105896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="0D8-kU-vpA" secondAttribute="trailing" constant="10" id="Caq-ka-MzQ"/>
                                                 <constraint firstItem="0D8-kU-vpA" firstAttribute="leading" secondItem="AgM-a6-Stv" secondAttribute="trailing" constant="15" id="G9V-8m-iNc"/>
@@ -109,7 +109,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="79" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Ux-GV-3sZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.25095507502555847" green="0.25099658966064453" blue="0.25094601511955261" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="a8F-Yl-Ykz">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="337"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -159,7 +159,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.25095507502555847" green="0.25099658966064453" blue="0.25094601511955261" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="ZDY-D4-rQz" secondAttribute="trailing" constant="8" id="2VU-xy-17v"/>
                                 <constraint firstAttribute="bottom" secondItem="rlt-XI-cld" secondAttribute="bottom" constant="8" id="BTT-Lh-ROX"/>
@@ -186,15 +186,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6g-5o-HO5">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1 pound boneless, skinless chicken breasts cut into 1-inch chunks " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6g-5o-HO5">
                                             <rect key="frame" x="61" y="10" width="338" height="61"/>
-                                            <attributedString key="attributedText">
-                                                <fragment content="1 pound boneless, skinless chicken breasts cut into 1-inch chunks">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dz-q7-0Ae">
@@ -210,7 +205,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.98277209050000003" green="0.98277209050000003" blue="0.98277209050000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.25095507502555847" green="0.25099658966064453" blue="0.25094601511955261" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="s6g-5o-HO5" secondAttribute="trailing" constant="15" id="93s-Mz-Rhs"/>
                                         <constraint firstItem="0dz-q7-0Ae" firstAttribute="leading" secondItem="kRM-2k-PUR" secondAttribute="leadingMargin" constant="14" id="Ckd-HL-nuJ"/>
@@ -220,7 +215,7 @@
                                         <constraint firstItem="s6g-5o-HO5" firstAttribute="leading" secondItem="0dz-q7-0Ae" secondAttribute="trailing" constant="12" id="joC-qp-cOi"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.98277209050000003" green="0.98277209050000003" blue="0.98277209050000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.29016751050949097" green="0.29021435976028442" blue="0.2901572585105896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="checkmarkButton" destination="0dz-q7-0Ae" id="eMN-mC-bKM"/>
                                     <outlet property="descriptionLabel" destination="s6g-5o-HO5" id="4Xb-tv-Kjr"/>
@@ -253,7 +248,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Gou-7y-ftM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.13477766513824463" green="0.14080885052680969" blue="0.14089912176132202" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.22887629270553589" green="0.23492822051048279" blue="0.23500397801399231" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="wz8-7b-a1k" kind="relationship" relationship="rootViewController" id="rfk-QK-93W"/>
